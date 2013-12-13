@@ -86,11 +86,9 @@ echo " "
 
 # Get Game Window
 echo "Click, with the mouse, on the Window that you want to Stream"
-rm -f twitch_tmp 2> /dev/null
-xwininfo -stats >> twitch_tmp
-TOPXY=$(cat twitch_tmp | awk 'FNR == 8 {print $4}')","$(cat twitch_tmp | awk 'FNR == 9 {print $4}')
-INRES=$(cat twitch_tmp | awk 'FNR == 12 {print $2}')"x"$(cat twitch_tmp | awk 'FNR == 13 {print $2}')
-rm -f twitch_tmp 2> /dev/null
+WININFO=$(xwininfo -stats)
+TOPXY=$(awk 'FNR == 8 {print $4}' <<< "$WININFO")","$(awk 'FNR == 9 {print $4}' <<< "$WININFO")
+INRES=$(awk 'FNR == 12 {print $2}' <<< "$WININFO")"x"$(awk 'FNR == 13 {print $2}' <<< "$WININFO")
 echo " "
 
 # Setup
